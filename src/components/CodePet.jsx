@@ -16,8 +16,8 @@ const CodePet = () => {
   });
 
   const [githubData, setGithubData] = useState({
-    username: '',
-    token: '', // Personal Access Token
+    username: import.meta.env.VITE_GITHUB_USERNAME,
+    token: import.meta.env.VITE_GITHUB_TOKEN,
     connected: false,
     lastSync: null,
     todayCommits: 0,
@@ -188,6 +188,13 @@ const CodePet = () => {
   const currentEvolution = getCurrentEvolution();
   const mood = getMood();
   const expToNext = 100 - (pet.experience % 100);
+
+  // Handle GitHub data update on load
+  useEffect(() => {
+    
+      fetchGitHubData();
+    
+  }, []);
 
   return (
     <div className="max-w-md mx-auto bg-gradient-to-b from-purple-100 to-blue-100 rounded-3xl p-6 shadow-2xl">
